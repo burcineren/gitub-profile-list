@@ -28,8 +28,9 @@ function getData(e){
                 //hata mesaji
             }
             else{
+                Storage.addSearchedUserToStorage(username);
                  ui.showUserInfo(response.user);
-                    ui.showRepoInfo(response.repo);
+                 ui.showRepoInfo(response.repo);
             }
         })
         .catch(err => ui.showError(err))
