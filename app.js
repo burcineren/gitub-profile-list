@@ -2,10 +2,11 @@
 const githubForm = document.getElementById("github-form");
 const nameInput = document.getElementById("githubname");
 const clearsLastUsers = document.getElementById("clear-last-users");
+const lastUsers = document.getElementById("last-users");
 const github = new Github();
 const ui = new UI();
 
-const lastUsers = document.getElementById("last-users");
+
 
 eventListeners();
 
@@ -28,6 +29,7 @@ function getData(e){
                 //hata mesaji
             }
             else{
+                ui.addSearchedUserToUi(username);
                 Storage.addSearchedUserToStorage(username);
                  ui.showUserInfo(response.user);
                  ui.showRepoInfo(response.repo);
@@ -41,9 +43,22 @@ function getData(e){
 }
 function clearAllSearched(){
     //tum aranananlari temizle
+    if(confirm("Emin misiniz?")){
+        //Silme
+        Storage.clearAllSearchedUsersFromStorage(); //Storagedan temizleyecek
+        ui.clearAllSearchedFromUI();
+    }
+
    
 }
 function getAllSearched(){
     //storageden bilgimizi alicaz arayuzumuze ekliyecez
     //Arananlari storageden al ve ui a ekle
+    let users =Storage.getSearchedUsersFormStorages();
+    
+     let resoult = "";   
+    users.forEach(user => {
+       resoult += `<li class="list-group-item">${user}</li>`;
+    });
+    lastUsers.innerHTML = resoult;
 }

@@ -90,4 +90,23 @@ class UI{
 
         });
     }
+    addSearchedUserToUi(username){
+        let users = Storage.getSearchedUsersFormStorages(); 
+
+        if(users.indexOf(username) === -1){
+            const li = document.createElement('li');
+            li.className = 'list-group-item';
+            li.textContent = username;
+            
+
+            this.lastUser.appendChild(li);
+
+        }
+    }
+    clearAllSearchedFromUI(){
+        while(this.lastUser.firstElementChild !== null){
+            this.lastUser.removeChild(this.lastUser.firstElementChild);
+        }
+        
+    }
 }   
